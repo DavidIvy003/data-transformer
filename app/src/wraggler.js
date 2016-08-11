@@ -17,6 +17,7 @@ function flattenArrayOfHashes (key, value) {
 }
 
 function flattenArray (key, value) {
+  console.log(value);
   var output = {};
   if (typeof value[0] === 'number') {
     output['max_' + key] = Math.max(...value);
@@ -25,6 +26,8 @@ function flattenArray (key, value) {
     output['avg_' + key] = output['sum_' + key] / value.length;
   } else if (typeof value[0] === 'string') {
     output[key] = value.join(', ');
+  } else if (value[0] instanceof Array) {
+    output = merge(flattenArray(key, value), output, '', '');
   } else if (typeof value[0] === 'object') {
     output = merge(flattenArrayOfHashes(key, value), output, '', '');
   }
@@ -46,10 +49,7 @@ Wraggler.flatten = function(content) {
     Object.keys(content).forEach(function(key) {
       var value = content[key];
       if (value instanceof Array) {
-        var childOutput = flattenArray(key, value);
-        Object.keys(childOutput).forEach(function (childKey){
-          output[childKey] = childOutput[childKey];
-        });
+        output = merge(flattenArray(key, value), output, '', '');
       } else if (typeof value === 'object') {
         output = merge(flattenContent(value), output, key + '_', '');
       } else {
