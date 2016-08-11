@@ -1,0 +1,25 @@
+{
+  "name": "String",
+  "date": "String",
+  "number": 4,
+
+  "max_list": 4,
+  "min_list": 1,
+  "sum_list": 10,
+  "avg_list": 2.5,
+
+  "string_list": "1, 2, 3, 4",
+
+  "dic_name": "String",
+  "dic_num": 10,
+
+  "max_high_of_weather": 90,
+  "min_high_of_weather": 40,
+  "sum_high_of_weather": 180,
+  "avg_high_of_weather": 60,
+
+  "max_low_of_weather": 80,
+  "min_low_of_weather": 30,
+  "sum_low_of_weather": 150,
+  "avg_low_of_weather": 50
+}
