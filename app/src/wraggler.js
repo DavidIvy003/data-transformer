@@ -17,7 +17,6 @@ function flattenArrayOfHashes (key, value) {
 }
 
 function flattenArray (key, value) {
-  console.log(value);
   var output = {};
   if (typeof value[0] === 'number') {
     output['max_' + key] = Math.max(...value);

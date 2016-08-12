@@ -3,6 +3,7 @@ const JSON_SIZE_LIMIT = '50mb';
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var Wraggler = require('./src/wraggler');
 
 var app = express();
 
@@ -19,6 +20,12 @@ app.post('/generate', function(request, response) {
   response.json({
     'valid': valid,
     'errors': ajv.errors
+  });
+});
+
+app.post('/transform', function(request, response) {
+  response.json({
+    data: Wraggler.flatten(request.body.data)
   });
 });
 
