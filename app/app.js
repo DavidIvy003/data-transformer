@@ -4,6 +4,7 @@ const JSON_SIZE_LIMIT = '50mb';
 var express = require('express');
 var bodyParser = require('body-parser');
 var Wraggler = require('./src/wraggler');
+var Wordsmith = require('wordsmith-node-sdk');
 
 var app = express();
 
@@ -17,9 +18,20 @@ app.use(function(err, request, response, next){
 });
 
 app.post('/generate', function(request, response) {
-  response.json({
-    'valid': valid,
-    'errors': ajv.errors
+  var body = request.body;
+  console.log(body);
+  var data = Wraggler.flatten(body.data);
+  var wordsmith = Wordsmith(body.api_key, 'transformer');
+
+  wordsmith.projects.find(body.project_slug)
+  .then(function(project) {
+    return project.templates.find(body.template_slug);
+  }).then(function(template) {
+    return template.generate(data);
+  }).then(function(content) {
+    response.json({
+      data: content
+    });
   });
 });
 
