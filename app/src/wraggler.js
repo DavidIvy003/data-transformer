@@ -19,9 +19,9 @@ function flattenArrayOfHashes (key, value) {
 function flattenArray (key, value) {
   var output = {};
   if (typeof value[0] === 'number') {
-    output['max_' + key] = Math.max(...value);
-    output['min_' + key] = Math.min(...value);
-    output['sum_' + key] = value.reduce(function(a, b) { return a + b; }, 0);;
+    output['max_' + key] = Math.max.apply(null, value);
+    output['min_' + key] = Math.min.apply(null, value);
+    output['sum_' + key] = value.reduce(function(a, b) { return a + b; }, 0);
     output['avg_' + key] = output['sum_' + key] / value.length;
   } else if (typeof value[0] === 'string') {
     output[key] = value.join(', ');
