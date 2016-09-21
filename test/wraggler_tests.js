@@ -57,6 +57,4 @@ describe('Wraggler', function() {
     var output = Wraggler.flatten(json);
     assert.deepEqual(output, results);
   });
-
-
 });
