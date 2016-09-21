@@ -2,26 +2,24 @@
 
 var Wraggler = {};
 
-function flattenArrayOfHashes (key, value) {
-  var output = {};
-  Object.keys(value[0]).forEach(function (childKey) {
-    var childValue = value[0][childKey];
+function flattenArrayOfHashes(key, value) {
+  let output = {};
+  Object.keys(value[0]).forEach( childKey => {
+    let childValue = value[0][childKey];
     if (typeof childValue === 'number') {
-      var array = value.map(function (v) {
-        return v[childKey];
-      });
+      const array = value.map(v => v[childKey]);
       output = merge(flattenArray(childKey, array), output, '', '_of_' + key);
     }
   });
   return output;
 }
 
-function flattenArray (key, value) {
-  var output = {};
+function flattenArray(key, value) {
+  let output = {};
   if (typeof value[0] === 'number') {
     output['max_' + key] = Math.max.apply(null, value);
     output['min_' + key] = Math.min.apply(null, value);
-    output['sum_' + key] = value.reduce(function(a, b) { return a + b; }, 0);
+    output['sum_' + key] = value.reduce(((a, b) => a + b), 0);
     output['avg_' + key] = output['sum_' + key] / value.length;
   } else if (typeof value[0] === 'string') {
     output[key] = value.join(', ');
@@ -33,20 +31,20 @@ function flattenArray (key, value) {
   return output;
 }
 
-function merge (hash1, hash2, prefix, postfix) {
-  Object.keys(hash1).forEach(function (childKey) {
+function merge(hash1, hash2, prefix, postfix) {
+  Object.keys(hash1).forEach( childKey => {
     hash2[prefix + childKey + postfix] = hash1[childKey];
   });
   return hash2;
 }
 
-Wraggler.flatten = function(content) {
+Wraggler.flatten = (content) => {
 
-  function flattenContent (content) {
-    var output = {};
+  function flattenContent(content) {
+    let output = {};
 
-    Object.keys(content).forEach(function(key) {
-      var value = content[key];
+    Object.keys(content).forEach( key => {
+      let value = content[key];
       if (value instanceof Array) {
         output = merge(flattenArray(key, value), output, '', '');
       } else if (typeof value === 'object') {

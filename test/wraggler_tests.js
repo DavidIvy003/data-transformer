@@ -1,7 +1,7 @@
 var assert = require('assert');
 var Wraggler = require('../app/src/wraggler');
 
-describe('Wraggler Checker', function() {
+describe('Wraggler', function() {
   it('should preserve strings', function() {
     var output = Wraggler.flatten({ name: 'string' });
     assert.deepEqual(output, { name: 'string' });
